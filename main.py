@@ -28,8 +28,8 @@ def index():
         db.session.add(new_blog)
         db.session.commit()
 
-    blog = Blog.query.all()
-    return render_template("blogs.html", title="Get It Done!", blog=blog)
+    blogs = Blog.query.all()
+    return render_template("index.html", title="Get It Done!", blogs=blogs)
 
 
 if __name__ == '__main__':

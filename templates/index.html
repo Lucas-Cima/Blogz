@@ -21,6 +21,7 @@
             <li>{{blog.name}}
                 <form method="POST" action="/delete-blog" style="display:inline-block;">
                     <input type="text" name="blog-id" value="{{blog.id}}" />
+                    <input type='submit' value='done!' />
                     
                 </form>
             </li>
@@ -30,13 +31,5 @@
     {% endif %}
 
     <hr />
-
-    <h2>Completed</h2>
-
-    <ul>
-        {% for task in completed_tasks %}
-        <li>{{task.name}}</li>
-        {% endfor %}
-    </ul>
 
 {% endblock %}
