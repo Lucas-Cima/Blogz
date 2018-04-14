@@ -8,12 +8,14 @@
             Title for your new Blog:
             <br>
             <input type="text" name='title' />
+            <p class="error">{{title_error}}</p>
         </label>
 </form>
 <form method='post'>
     <label>
         Your new entry:<br>
         <input type='text' name='blog' />
+        <p class="error">{{blog_error}}</p>
     </label>
     <br>
     <input type="submit" value='Add Blog' />
