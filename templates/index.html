@@ -1,17 +1,8 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>Bloggers</h1>
-    <form method='post'>
-        <label>
-            New Blog:
-            <input type="text" name='blog' />
-        </label>
-        <input type="submit" value='Add Blog' />
-    </form>
-
+    <h1>Build a Blog</h1>
     <hr />
-
     {% if blogs|length == 0 %}
     <p>No Blogs yet</p>
     {% else %}
@@ -29,7 +20,5 @@
         </ul>
 
     {% endif %}
-
-    <hr />
 
 {% endblock %}

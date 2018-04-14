@@ -19,8 +19,13 @@ class Blog(db.Model):
         self.completed = False
 
 
-@app.route('/', methods=['POST', 'GET'])
+@app.route('/')
 def index():
+    return redirect('/blog')
+
+
+@app.route('/blog', methods=['POST', 'GET'])
+def display_blog():
 
     if request.method == 'POST':
         blog_name = request.form['blog']
@@ -30,6 +35,16 @@ def index():
 
     blogs = Blog.query.all()
     return render_template("index.html", title="Get It Done!", blogs=blogs)
+
+@app.route('/new_post', methods=['POST', 'GET'])
+def new_post():
+    title = request.form['title']
+    blog = request.form['blog']
+    title_error = ''
+    blog_error = ''
+
+    
+    return render_template('new_post.html')
 
 
 if __name__ == '__main__':
