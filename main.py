@@ -14,9 +14,9 @@ class Blog(db.Model):
     title = db.Column(db.String(120))
     body = db.Column(db.String(300))
 
-    def __init__(self, name):
-        self.name = name
-        self.completed = False
+    def __init__(self, title, body):
+        self.title = title
+        self.body = body
 
 
 @app.route('/')
@@ -26,33 +26,20 @@ def index():
 
 @app.route('/blog', methods=['POST', 'GET'])
 def display_blog():
-    return render_template("index.html")
+    blogs = Blog.query.all()
+    return render_template("index.html", blogs=blogs)
+
 
 @app.route('/new_post', methods=['POST', 'GET'])
 def new_post():
     if request.method == 'POST':
+        blog_title = request.form['title']
         blog_name = request.form['blog']
-        new_blog = Blog(blog_name)
+        new_blog = Blog(blog_title, blog_name)
         db.session.add(new_blog)
         db.session.commit()
-
-        blogs = Blog.query.all()
+    
     return render_template('new_post.html')
-
-
-@app.route('/new_post', methods=['POST', 'GET'])
-def validate_new_post():
-    title = request.form['title']
-    blog = request.form['blog']
-    title_error = ''
-    blog_error = ''
-
-    if len(title) < 1:
-        title_error = 'Please enter a title'
-    if len(blog) < 1:
-        blog_error = 'Please enter a blog'
-    if not title_error or blog_error:
-        return render_template('new_post.html', title=title, blog=blog)
 
 if __name__ == '__main__':
     app.run()
