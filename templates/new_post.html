@@ -3,17 +3,19 @@
 {% block content %}
 
 <h1>New Blog</h1>
-<form method='post'>
+<form method='post' action='/new_post' >
     <label>
         Title for your new Blog:
         <br>
         <input type="text" name='title'/>
+        <p class="error">{{title_error}}</p>
     </label>
     <br>
 
     <label>
         Your new entry:<br>
         <input type='text' name='blog' />
+        <p class="error">{{body_error}}</p>
     </label>
     <br>
     <input type="submit" value='Add Blog' />
