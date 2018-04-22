@@ -2,18 +2,26 @@
 <html>
     <head>
         <title>{{title}}</title>
+        <a href="/login">Log In</a>
+        <a href="/signup">Sign Up</a>
         <a href="/blog">Main Blog Page</a>
-        <br>
         <a href="/new_post">Add a Blog Entry</a>
+        <a href="/logout">Log Out</a>
         <style>
             .error {color: red;}
             h1 { text-align:center; }
         </style>
     </head>
-<body>
-
+    <body>
+        {% with messages = get_flashed_messages(with_categories=True) %}
+        <ul>
+        {% for category,message in messages %}
+            <li class='{{category}}'>{{message}}</li>
+        {% endfor %}
+        </ul>
+        {% endwith %}
     {% block content %}
     {% endblock %}
 
-</body>
+    </body>
 </html>
