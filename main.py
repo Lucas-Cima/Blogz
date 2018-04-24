@@ -42,6 +42,7 @@ def require_login():
 
 @app.route('/')
 def index():
+
     if request.args.get('id'):
         user_id = request.args.get('id')
         user = User.query.filter_by(id=user_id).first()
@@ -106,6 +107,11 @@ def signup():
 
 @app.route('/blog', methods=['POST', 'GET'])
 def blog():
+    if request.args.get('email'):
+        email_id = request.args.get('email')
+        email = User.query.filter_by(email=email_id).first()
+        return render_template('single.user.html', email=email)
+
 
     if request.args.get('id'):
         blog_id = request.args.get('id')
@@ -114,6 +120,7 @@ def blog():
     else:
         blogs = Blog.query.all()
         return render_template("main.html", blogs=blogs)
+
 
 @app.route('/new_post', methods=['POST', 'GET'])
 def new_post():
