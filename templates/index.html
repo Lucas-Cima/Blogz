@@ -5,7 +5,7 @@
     <hr />
         <ul>
             {% for user in users %}
-            <center><li>{{user.email}}</li></center>
+            <center><a href="/blog?user={{user.id}}"><li>{{user.email}}</li></a></center>
             {% endfor %}
         </ul>
 {% endblock %}

@@ -107,19 +107,29 @@ def signup():
 
 @app.route('/blog', methods=['POST', 'GET'])
 def blog():
-    if request.args.get('email'):
+    if request.args.get('user'):
+        blog_id = request.args.get('id')
+        blog = Blog.query.filter_by(id=blog_id).first()
+        
         email_id = request.args.get('email')
-        email = User.query.filter_by(email=email_id).first()
-        return render_template('single.user.html', email=email)
+        user = User.query.filter_by(email=email_id).first()
+        return render_template('singleUser.html', user=user, blog=blog)
 
 
     if request.args.get('id'):
         blog_id = request.args.get('id')
         blog = Blog.query.filter_by(id=blog_id).first()
-        return render_template('blog.html', blog=blog)
+        
+        email_id = request.args.get('email')
+        user = User.query.filter_by(email=email_id).first()
+        return render_template('blog.html', blog=blog, user=user)
     else:
+        email_id = request.args.get('email')
+        user = User.query.filter_by(email=email_id).first()
+        email = User.query.filter_by(email=email_id).first()
+        
         blogs = Blog.query.all()
-        return render_template("main.html", blogs=blogs)
+        return render_template("main.html", blogs=blogs, user=user, email=email)
 
 
 @app.route('/new_post', methods=['POST', 'GET'])
