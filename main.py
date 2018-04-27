@@ -105,31 +105,29 @@ def signup():
             password_error=password_error, verify_error=verify_error)
 
 
+
 @app.route('/blog', methods=['POST', 'GET'])
 def blog():
     if request.args.get('user'):
-        blog_id = request.args.get('id')
-        blog = Blog.query.filter_by(id=blog_id).first()
-        
-        email_id = request.args.get('email')
-        user = User.query.filter_by(email=email_id).first()
-        return render_template('singleUser.html', user=user, blog=blog)
+        user = request.args.get('user')
+        owner = User.query.filter_by(email=user).first()
+        blogs = Blog.query.filter_by(owner=owner).all()
+        return render_template('singleUser.html', blogs=blogs, owner=owner, user=user)
 
 
     if request.args.get('id'):
         blog_id = request.args.get('id')
         blog = Blog.query.filter_by(id=blog_id).first()
-        
         email_id = request.args.get('email')
         user = User.query.filter_by(email=email_id).first()
         return render_template('blog.html', blog=blog, user=user)
     else:
         email_id = request.args.get('email')
+        
         user = User.query.filter_by(email=email_id).first()
-        email = User.query.filter_by(email=email_id).first()
         
         blogs = Blog.query.all()
-        return render_template("main.html", blogs=blogs, user=user, email=email)
+        return render_template("main.html", blogs=blogs, user=user)
 
 
 @app.route('/new_post', methods=['POST', 'GET'])
